@@ -46,12 +46,12 @@ def download_image(url):
 
 
 # Input image
-img_url = 'https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?cs=srgb&dl=pexels-wildlittlethingsphoto-1996333.jpg&fm=jpg'
-img_name = img_url.split('/')[-1]
-img_name = img_name.split('?')[0]
+img_url = 'D:\ComfyUI-aki-v1.4\input\0.jpg '#'https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?cs=srgb&dl=pexels-wildlittlethingsphoto-1996333.jpg&fm=jpg'
+# img_name = img_url.split('/')[-1]
+# img_name = img_name.split('?')[0]
 input_image = download_image(img_url)
-input_image.save(f'original/{img_name}', format='jpeg')
-
+# input_image.save(f'original/{img_name}', format='jpeg')
+img_name = "0.jpg"
 # Background removal
 input_path = f'original/{img_name}'
 output_path = f'output/removed_{img_name}'
