@@ -46,14 +46,14 @@ def download_image(url):
 
 
 # Input image
-img_url = 'D:\ComfyUI-aki-v1.4\input\0.jpg '#'https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?cs=srgb&dl=pexels-wildlittlethingsphoto-1996333.jpg&fm=jpg'
+#img_url = 'D:\ComfyUI-aki-v1.4\input\0.jpg '#'https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?cs=srgb&dl=pexels-wildlittlethingsphoto-1996333.jpg&fm=jpg'
 # img_name = img_url.split('/')[-1]
 # img_name = img_name.split('?')[0]
 input_image = None #download_image(img_url)
 # input_image.save(f'original/{img_name}', format='jpeg')
 img_name = "0.jpg"
 # Background removal
-input_path = f'original/{img_name}'
+input_path = f'photo/{img_name}'
 output_path = f'output/removed_{img_name}'
 
 with open(input_path, 'rb') as f:
@@ -175,7 +175,7 @@ class CameraApp:
             frame = cv2.flip(frame, 1)  # 如果需要镜像照片，则在拍照时进行翻转操作
  
         # 获取十三位时间戳
-        now_time = 10000#Utils().getCurrentDateLong()  # 使用 Utils 类中的方法获取当前时间的 13 位时间戳
+        now_time =Utils().getCurrentDateLong()  # 使用 Utils 类中的方法获取当前时间的 13 位时间戳
  
         # 保存照片，以时间戳命名
         cv2.imwrite(f"photo/0.jpg", frame)  # 保存图片到指定路径下，以当前时间戳作为文件名
@@ -197,5 +197,5 @@ class Utils():
         return current_timestamp
  
 # 主函数
-if __name__ == "__main__":
-    app = CameraApp()  # 创建 CameraApp 对象，启动程序
+# if __name__ == "__main__":
+#     app = CameraApp()  # 创建 CameraApp 对象，启动程序
