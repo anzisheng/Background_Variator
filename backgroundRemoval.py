@@ -37,9 +37,9 @@ os.makedirs('output', exist_ok=True)
 # Function to download an image
 def download_image(url):
     try:
-        response = requests.get(url, stream=True)  # Stream the response
-        response.raise_for_status()  # Raise an HTTPError for bad responses
-        return Image.open(BytesIO(response.content))
+        #response = requests.get(url, stream=True)  # Stream the response
+        #response.raise_for_status()  # Raise an HTTPError for bad responses
+        return Image.open(url)#Image.open(BytesIO(response.content))
     except Exception as e:
         print(f"Error downloading image from {url}: {e}")
         return None  # Return None if the image cannot be downloaded
@@ -49,7 +49,7 @@ def download_image(url):
 img_url = 'D:\ComfyUI-aki-v1.4\input\0.jpg '#'https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?cs=srgb&dl=pexels-wildlittlethingsphoto-1996333.jpg&fm=jpg'
 # img_name = img_url.split('/')[-1]
 # img_name = img_name.split('?')[0]
-input_image = download_image(img_url)
+input_image = None #download_image(img_url)
 # input_image.save(f'original/{img_name}', format='jpeg')
 img_name = "0.jpg"
 # Background removal
@@ -67,18 +67,22 @@ foreground = Image.open(output_path).convert("RGBA")
 
 # Backgrounds for variations
 background_urls = [
-    'https://img.freepik.com/free-photo/design-space-paper-textured-background_53876-32191.jpg',
-    'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?cs=srgb&dl=pexels-pixabay-414612.jpg&fm=jpg',
-    'https://img.freepik.com/free-photo/brown-gradient-background_53876-104923.jpg',
-    'https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_640.jpg',
-    'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg?cs=srgb&dl=pexels-pixabay-1034662.jpg&fm=jpg'
+    #'https://img.freepik.com/free-photo/design-space-paper-textured-background_53876-32191.jpg',
+    'original/design-space-paper-textured-background_53876-32191.jpg',
+    # 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?cs=srgb&dl=pexels-pixabay-414612.jpg&fm=jpg',
+    'original/pexels-photo-414612.jpeg',
+    'original/brown-gradient-background_53876-104923.jpg',
+    'original/field-6574455_640.jpg',
+    'original/pexels-pixabay-1034662.jpg',
+    # 'https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_640.jpg',
+    # 'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg?cs=srgb&dl=pexels-pixabay-1034662.jpg&fm=jpg'
 ]
 
 # ... previous code ...
 # Generate multiple variations and store them
 composite_images = [input_image]  # Start with the original image
 for i, bg_url in enumerate(background_urls):
-    background = download_image(bg_url)
+    background = Image.open(bg_url)#download_image(bg_url)
     if background is not None: # Check if download was successful
         background = background.convert("RGBA")
         background = background.resize(foreground.size)
@@ -98,14 +102,14 @@ for i, bg_url in enumerate(background_urls):
         print(f"Skipping invalid background URL: {bg_url}")
 
 # Display all images side by side
-fig, axs = plt.subplots(1, len(composite_images), figsize=(15, 5))
-titles = ['Original'] + [f'Variation {i+1}' for i in range(len(background_urls))]
+#fig, axs = plt.subplots(1, len(composite_images), figsize=(15, 5))
+#titles = ['Original'] + [f'Variation {i+1}' for i in range(len(background_urls))]
 
-for ax, img, title in zip(axs, composite_images, titles):
-    ax.imshow(img)
-    ax.set_title(title)
-    ax.axis('off')
+# for ax, img, title in zip(axs, composite_images, titles):
+#     ax.imshow(img)
+#     ax.set_title(title)
+#     ax.axis('off')
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
